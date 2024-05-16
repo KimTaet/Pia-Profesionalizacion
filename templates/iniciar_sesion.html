@@ -1,0 +1,142 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'iniciar_sesion.css'%}">
+    <link rel="icon" type="image/png" href="{% static 'img/IT_SOLUTIONS.png' %}">
+</head>
+<body>
+    <div class="container" id="container">
+        <div class="form-container sign-up-container">
+            <form method="post" id="formularioRegistro">
+                {% csrf_token %}
+                <h1>Crear cuenta</h1>
+                <input type="text" id="nombre" name="nombre" placeholder="Nombre" required />
+                <input type="text" id="telefono" name="telefono" placeholder="Telefono" required />
+                <input type="email" id="email" name="email" placeholder="Correo electrónico" required />
+                <input type="text" id="direccion" name="direccion" placeholder="Direccion" required />
+                <input type="password" id="password" name="password" placeholder="Contraseña" required />
+                <input type="password" id="confirmarPassword" name="confirmarPassword" placeholder="Confirmar contraseña" required />
+                <button type="submit">REGISTRARSE</button>
+            </form>
+        </div>
+        <div class="form-container sign-in-container">
+            <form method="post" action="{% url 'iniciar_sesion' %}">
+                {% csrf_token %}
+                <h1>Ingresar</h1>
+                {% if mensaje %}
+                <p class="mensaje-error">{{ mensaje }}</p>
+                {% endif %}
+                <input type="email" name="email" placeholder="Correo electrónico" />
+                <input type="password" name="password" placeholder="Contraseña" />
+                <button type="submit">INICIAR SESION</button>
+            </form>
+        </div>
+
+        {% if cliente %}
+        <div class="perfil-container">
+            <h2>Datos del Usuario:</h2>
+            <p><strong>Nombre:</strong> {{ cliente.nombre }}</p>
+            <p><strong>Email:</strong> {{ cliente.email }}</p>
+            <p><strong>Teléfono:</strong> {{ cliente.telefono }}</p>
+            <p><strong>Direccion:</strong> {{ cliente.direccion }}</p> <!-- Corregido el campo de dirección -->
+            <!-- Agrega aquí más campos si es necesario -->
+            <a href="{% url 'perfil_usuario' nombre_de_usuario=cliente.nombre %}">Ver perfil</a>
+        </div>
+        {% endif %}
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <a href="{% url 'index' %}"><img src="{% static 'img/IT_SOLUTIONS.png' %}" alt="logo"></a>
+                    <h1>¡Bienvenido de nuevo!</h1>
+                    <p>Para mantener la conexión con nosotros, por favor inicia sesión con tu información personal</p>
+                    <button class="ghost" id="signIn">INICIA SESION</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <a href="{% url 'index' %}"><img src="{% static 'img/IT_SOLUTIONS.png' %}" alt="logo"></a>
+                    <h1>Hello, Friend!</h1>
+                    <p>Ingresa tu información personal y comienza una nueva aventura con nosotros</p>
+                    <button class="ghost" id="signUp">REGISTRATE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const signUpButton = document.getElementById("signUp");
+        const signInButton = document.getElementById("signIn");
+        const container = document.getElementById("container");
+
+        signUpButton.addEventListener("click", () => {
+            container.classList.add("right-panel-active");
+        });
+
+        signInButton.addEventListener("click", () => {
+            container.classList.remove("right-panel-active");
+        });
+
+        const csrfToken = "{{ csrf_token }}";
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const formularioRegistro = document.getElementById('formularioRegistro');
+
+            formularioRegistro.addEventListener('submit', function (event) {
+                event.preventDefault(); // Evita que se envíe el formulario automáticamente
+
+                // Obtener los valores del formulario
+                const nombre = document.getElementById('nombre').value;
+                const telefono = document.getElementById('telefono').value;
+                const email = document.getElementById('email').value;
+                const direccion = document.getElementById('direccion').value;
+                const password = document.getElementById('password').value;
+                const confirmarPassword = document.getElementById('confirmarPassword').value;
+
+                // Validar los campos (puedes agregar más validaciones aquí si es necesario)
+                if (nombre.trim() === '' || telefono.trim() === '' || email.trim() === '' || password.trim() === '' || confirmarPassword.trim() === '') {
+                    alert('Por favor, completa todos los campos.');
+                    return; // Detener la ejecución si faltan campos
+                }
+
+                // Validar la coincidencia de contraseñas
+                if (password !== confirmarPassword) {
+                    alert('Las contraseñas no coinciden.');
+                    return; // Detener la ejecución si las contraseñas no coinciden
+                }
+
+                // Enviar los datos del formulario al servidor usando AJAX
+                const formData = new FormData();
+                formData.append('nombre', nombre);
+                formData.append('telefono', telefono);
+                formData.append('email', email);
+                formData.append('direccion', direccion)
+                formData.append('password', password);
+                formData.append('confirmarPassword', confirmarPassword);
+
+                fetch('/registrar_cliente/', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRFToken': csrfToken
+                    }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        alert('¡Registro exitoso!');
+                        window.location.href = '/'; // Redirige a la página de inicio después del registro
+                    } else {
+                        alert('Ha ocurrido un error. Por favor, intenta nuevamente.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Ha ocurrido un error. Por favor, intenta nuevamente.');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

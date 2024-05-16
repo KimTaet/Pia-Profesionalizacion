@@ -1,0 +1,482 @@
+
+header{
+    background: -webkit-linear-gradient(to right, #73bff1fd, #8e8de4);
+	background: linear-gradient(to right, #73bff1fd, #8e8de4);
+    /*background-color: #4486e9;  Color de fondo del encabezado */
+    padding: 20px; /* Espacio interior del encabezado */
+    text-align: center;
+}
+
+
+nav {
+    position: relative;
+    z-index: 1;
+    }
+    nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    justify-content: center;
+    display: flex;
+    gap: 40px;
+    }
+    
+    nav ul li a {
+        -webkit-appearance: none;
+            -moz-appearance: none;
+                appearance: none;
+        border: none; cursor: pointer;
+        background-color:transparent;
+        padding: 0; margin: 0;
+        font-family: "Inter";
+        font-weight: 600;
+        font-size: 16px;
+        list-style: 22px;
+        color: #fff;
+        transition: color 0.25s;
+    }
+
+    nav ul li.active a {
+        color: #00fffc;
+        }
+        nav ul li:not(.active):hover a {
+        color: #807E8C;
+        }
+        nav .active-element {
+        --active-element-scale-x: 1;
+        --active-element-scale-y: 1;
+        --active-element-show: 0;
+        --active-element-opacity: 0;
+        --active-element-width: 0px;
+        --active-element-strike-x: 0%;
+        --active-element-mask-position: 0%;
+        position: absolute;
+        left: 0;
+        top: 40px;
+        height: 3px;
+        width: 36px;
+        border-radius: 2px;
+        background-color: #fff;
+        opacity: var(--active-element-show);
+        }
+
+        nav .active-element > svg,
+        nav .active-element .strike {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        opacity: var(--active-element-opacity);
+        width: var(--active-element-width);
+        mix-blend-mode: multiply;
+        }
+        nav .active-element > svg {
+        display: block;
+        overflow: visible;
+        height: 5px;
+        filter: blur(0.5px) drop-shadow(2px 0px 8px rgba(0, 117, 255, 0.4)) drop-shadow(1px 0px 2px rgba(0, 128, 255, 0.8)) drop-shadow(0px 0px 3px rgba(153, 204, 255, 0.4)) drop-shadow(2px 0px 8px rgba(137, 196, 255, 0.45)) drop-shadow(8px 0px 16px rgba(153, 204, 255, 0.5));
+        }
+
+        nav .active-element .strike {
+            padding: 24px 0;
+            -webkit-mask-image: linear-gradient(to right, transparent calc(0% + var(--active-element-mask-position)), black calc(15% + var(--active-element-mask-position)), black 80%, transparent);
+            mask-image: linear-gradient(to right, transparent calc(0% + var(--active-element-mask-position)), black calc(15% + var(--active-element-mask-position)), black 80%, transparent);
+            }
+        nav .active-element .strike svg {
+        display: block;
+        overflow: visible;
+        height: 12px;
+        width: calc(var(--active-element-width) * 2);
+        transform: translate(var(--active-element-strike-x), 30%) scale(var(--active-element-scale-x), var(--active-element-scale-y));
+        }
+
+        nav .active-element .strike svg:last-child {
+        transform: translate(var(--active-element-strike-x), -30%) scale(-1);
+        }
+        nav .active-element .strike svg g path:nth-child(2) {
+        filter: blur(2px);
+        }
+        nav .active-element .strike svg g path:nth-child(3) {
+        filter: blur(4px);
+        }
+        nav.before .active-element {
+        transform: rotateY(180deg);
+        }
+
+        html {
+        box-sizing: border-box;
+        -webkit-font-smoothing: antialiased;
+        }
+        
+
+.move-right {
+    margin-right: -300px;
+    margin-left: 300px;
+} /* Ajusta el valor según sea necesario */
+
+
+.productos-link {
+    color: black; /* Cambia el color del texto del enlace a azul */
+    background-color: lightgray; /* Agrega un fondo gris claro al enlace */
+    padding: 5px 10px; /* Añade un espacio de relleno alrededor del enlace */
+    text-decoration: none; /* Quita el subrayado predeterminado del enlace */
+    display: inline-block; /* Hace que el enlace sea un bloque en línea */
+    margin-bottom: 5px; /* Agrega un margen inferior para separar los enlaces */
+    text-decoration: none; /* Quita la subrayado predeterminado del enlace */
+}
+
+/* Cambia el color del texto del enlace cuando se coloca el mouse sobre él */
+.evento-link:hover {
+    color: red; /* Cambia el color del texto del enlace a rojo cuando se coloca el mouse sobre él */
+}
+
+/* Estilos para la lista de navegación */
+nav ul {
+    list-style-type: none; /* Elimina los marcadores de lista */
+    padding: 20px; /* Elimina el relleno predeterminado de la lista */
+}
+
+/* Estilos para los elementos de la lista de navegación */
+nav ul li {
+    display: inline; /* Mostrar los elementos de la lista en línea */
+    justify-content: center;
+    margin-right: 20px; /* Espacio entre los elementos de la lista */
+}
+
+nav a {
+    position: relative;
+    font-size: 1.1em;
+    font-weight: 500;
+    color: #333;
+    text-decoration: none;
+    padding: 6px 20px;
+    transition: 0.5s;
+}
+
+/* Estilos para el estado :active de los enlaces 
+nav ul li a:active {
+    color: #020302; Cambia el color de texto cuando el enlace está activo (presionado) 
+    background-color: #45a049 ;
+}
+*/
+nav a:hover {
+    color: #8ef;
+}
+
+nav a span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    border-bottom: 2px solid #bef;
+    border-radius: 15px;
+    transform: scale(0) translateY(50px); /* Fixed typo in translateY */
+    opacity: 0;
+    transition: 0.5s;
+}
+nav a:hover span {
+    transform: scale(1) translateY(0); /* Fixed typo in translateY */
+    opacity: 1;
+}
+
+
+form a{
+    border-radius: 20px;
+	border: 1px solid #012588;
+	background-color: #012588;
+	color: #ffffff;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 15px 45px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	transition: transform 80ms ease-in;
+    margin-bottom: 20px;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+.main-container {
+    position: fixed;
+    top: 100px; /* Establece una distancia desde la parte superior de la pantalla */
+    right: 0;
+    max-height: calc(100% - 50px); /* Establece la altura máxima del contenedor para que se ajuste al tamaño de la pantalla menos la distancia desde la parte superior */
+    overflow-y: auto; /* Agrega una barra de desplazamiento vertical si es necesario */
+}
+
+.container {
+    max-width: 400px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    margin-bottom: 100px;
+
+}
+
+
+.container_eventos {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-between;
+    float: left;
+    margin: 70px auto;
+    margin-right: 340px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center; /*Centrar contenido horizontalmente */
+	background-color: #fff;
+	border-radius: 10px;
+	box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+	overflow: hidden;
+	max-width: 100%;
+	min-height: 480px;
+}
+
+.producto{
+    max-width: 350px;
+    height: auto;
+    float: left;
+	margin-top: -3px;
+    margin-bottom: 10px;
+}
+
+.servicio{
+    max-width: 350px;
+    height: auto;
+    float: left;
+	margin-top: -3px;
+    margin-bottom: 10px;
+}
+
+
+/*.container_eventos{
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-between;
+    float: left;
+    margin: 70px auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center; /*Centrar contenido horizontalmente 
+}*/
+
+h1{
+    display: block;
+    margin-bottom: 5px;
+    color: black;
+    text-align: center; /* Centrar el texto dentro del label */
+    width: 80%;
+    margin-left: 55px; /* Centrar horizontalmente el label */
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+    text-align: center; /* Centrar el texto dentro del label */
+    width: 80%;
+    margin: 5px auto; /* Centrar horizontalmente el label */
+}
+
+input {
+	background-color: #eee;
+	border: none;
+	padding: 12px 15px;
+	margin: 20px 10px;
+
+}
+
+form.search-container {
+	background-color: #ffffff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	padding: 30px /*0 50px*/;
+	height: 100%;
+	text-align: center;
+}
+
+.mensaje {
+    display: none;
+    margin-top: 20px;
+    color: red;
+}
+
+button {
+	border-radius: 20px;
+	border: 1px solid #012588;
+	background-color: #012588;
+	color: #ffffff;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 12px 45px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	transition: transform 80ms ease-in;
+}
+
+button:active {
+	transform: scale(0.95);
+}
+
+button:focus {
+	outline: none;
+}
+
+button.ghost {
+	background-color: transparent;
+	border-color: #ffffff;
+}
+
+img{
+    max-width: 130px;
+    height: auto;
+	float: left;
+}
+
+form {
+	background-color: #ffffff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	padding-top: 20px /*0 50px*/;
+    padding-bottom: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
+	height: 100%;
+	text-align: center;
+}
+
+footer {
+    background: -webkit-linear-gradient(to right, #73bff1fd, #8e8de4);
+	background: linear-gradient(to right, #73bff1fd, #8e8de4);
+    color: #020302; /* Color del texto */
+    padding: 20px; /* Espacio interno del footer */
+    text-align: center; /* Centra el texto */
+}
+
+.footer-container {
+    display: flex; /* Utiliza flexbox para distribuir los elementos horizontalmente */
+    justify-content: space-around; /* Distribuye uniformemente los elementos */
+}
+
+.contactos,.redes-sociales {
+    flex: 1; /* Hace que los elementos ocupen el mismo ancho */
+    margin: 0 10px; /* Margen entre los elementos */
+}
+
+
+.redes-sociales ul {
+    padding: 0;
+    list-style: none; /* Elimina los estilos de la lista */
+}
+
+.redes-sociales ul li {
+    margin-bottom: 10px; /* Espacio entre los elementos de la lista */
+}
+
+.redes-sociales ul li a {
+    color: #020302; /* Color del texto de los enlaces */
+    text-decoration: none; /* Elimina el subrayado de los enlaces */
+}
+
+.redes-sociales ul li a:hover{
+    color: rgb(190, 102, 241);
+}
+
+.terminos {
+    text-align: center; /* Centra los elementos horizontalmente */
+}
+
+.terminos ul {
+    list-style: none; /* Elimina los puntos de la lista */
+    padding: 0; /* Elimina el relleno predeterminado */
+}
+
+.terminos ul li {
+    display: inline; /* Muestra los elementos de la lista en línea */
+    margin: 0 10px; /* Espacio entre los elementos */
+}
+
+.terminos ul li a {
+    color: #131212; /* Color del texto del enlace */
+    text-decoration: none; /* Elimina el subrayado del enlace */
+}
+
+.terminos ul li a:hover {
+    color: rgb(190, 102, 241);
+}
+
+.contactos {
+    text-align: center; /* Centra el contenido */
+}
+
+.contactos ul {
+    list-style: none; /* Elimina los puntos de la lista */
+    padding: 0; /* Elimina el relleno predeterminado */
+}
+
+.contactos ul li {
+    display: inline-block; /* Muestra los elementos de la lista en línea */
+    margin: 0 10px; /* Espacio entre los elementos */
+}
+
+.contactos ul li a {
+    color: #131212; /* Color del texto del enlace */
+    text-decoration: none; /* Elimina el subrayado del enlace */
+}
+
+.contactos ul li a:hover {
+    color: rgb(190, 102, 241);
+}
+
+.footer-container .contactos p {
+    font-size: 16px; /* Tamaño de letra para los párrafos dentro de la sección de contactos */
+}
+
+.terminos ul p {
+    font-size: 16px; /* Tamaño de letra para los párrafos dentro de la lista de términos y condiciones */
+}
+
+
+/* Estilo para el contenedor del carrito */
+#carrito-container {
+    position: absolute; /* Cambiado de 'relative' a 'absolute' */
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    width: 50px; /* Ancho del círculo */
+    height: 50px; /* Altura del círculo */
+    border-radius: 50%; /* Forma circular */
+    background-color: #333; /* Color de fondo del círculo */
+    cursor: pointer;
+}
+
+/* Estilo para el icono del carrito */
+#carrito-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    font-size: 24px;
+    color: #fff; /* Color del icono */
+    text-decoration: none;
+}
+
+
+
+
+
